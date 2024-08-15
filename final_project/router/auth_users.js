@@ -16,7 +16,21 @@ const authenticatedUser = (username,password)=>{ //returns boolean
 //only registered users can login
 regd_users.post("/login", (req,res) => {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  const username = req.body.username; 
+  const password = req.body.password; 
+  let isUsernameExist = false; 
+  
+  // Check if username exists in the array of users
+  for (const user of users) {
+    if (username === user.username && password === user.password) {
+      isUsernameExist = true; 
+      return res.status(300).json({message: "You successfully login"});
+    }
+  }
+  if(!isUsernameExist)
+    return res.status(404).json({message: "Sorry you must register first"})
+
+ 
 });
 
 // Add a book review
